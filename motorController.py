@@ -13,24 +13,45 @@ if sys.version_info.major < 3:
 else:
 	import _thread
 
+serialString =""
+ErrorSerial = True
+
 def read_from_port(ser):
+	global serialString , ErrorSerial
 	while True:
-		time.sleep(0.005)
 		reading = ser.readline().decode()
 		if reading!= "":
-			#print (reading)
-			pubRobotV3.publish(reading)
+			if ErrorSerial == True:
+				serialString += reading
+			else:
+				serialString = reading
+			if "\n" not in reading:
+				ErrorSerial = True
+			else:
+				ErrorSerial = False
+				print (serialString)
+				pubRobotV3.publish(serialString)
+		reading = ""
+def write_to_port(data):
+        message=str(data.data)
+        serial_port.write(message)
 
 if __name__ == '__main__':
 	try:
-		pubRobotV3 = rospy.Publisher('motor_publish', String, queue_size=1)
+		pubRobotV3 = rospy.Publisher('PublishMotorController', String, queue_size=1)
+                rospy.Subscriber("msgForMotorControllerV3", String, write_to_port)
 		rospy.init_node('motorControllerV3')
 
 		serial_port = serial.Serial('/dev/nano', 115200,timeout=0)
 		serThread = threading.Thread(target=read_from_port, args=(serial_port,))
+		serThread.setDaemon(True)
 		serThread.start()
 
 		rospy.spin()
 	except serial.SerialException:
 		print "Serial Port Error..."
+        except KeyboardInterrupt:
+                print "Key-interrupt"
+                sys.exit(0)
+
 	sys.exit(0)
