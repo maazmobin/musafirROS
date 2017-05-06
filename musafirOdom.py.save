@@ -1,0 +1,36 @@
+import math
+from math import sin, cos, pi
+
+import rospy
+import tf
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
+from std_msgs.msg import String
+
+x = 0.0
+y = 0.0
+th = 0.0
+
+vx = 0.1
+vy = -0.1
+
+def callback(data):
+	message=data.data
+	if message.count(',')==7:
+		a,b,c,d,e,f,g,h=message.split(",")
+		x=float(d)
+		y=float(e)
+		th=float(f)
+		vx=float(g)
+		vy=float(h)
+		print("-->
+        print(message)
+
+
+if __name__ == '__main__':
+
+	rospy.init_node('odometry_publisher')
+
+	odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
+	sub = rospy.Subscriber("PublishMotorController", String, callback)
+	rospy.spin()

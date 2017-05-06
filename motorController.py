@@ -29,7 +29,7 @@ def read_from_port(ser):
 				ErrorSerial = True
 			else:
 				ErrorSerial = False
-				print (serialString)
+#				print (serialString)
 				pubRobotV3.publish(serialString)
 		reading = ""
 def write_to_port(data):
@@ -38,6 +38,9 @@ def write_to_port(data):
 
 if __name__ == '__main__':
 	try:
+		print("\n Note:")
+		print("Publishing Serial String of Motor Controller: 'PublishMotorController'")
+		print("Subscribe Serail String for Motor Controller: 'msgForMotorControllerV3'")
 		pubRobotV3 = rospy.Publisher('PublishMotorController', String, queue_size=1)
                 rospy.Subscriber("msgForMotorControllerV3", String, write_to_port)
 		rospy.init_node('motorControllerV3')
