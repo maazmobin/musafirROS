@@ -24,7 +24,7 @@ def callback(data):
 		vx=float(odomDataList[6])
 		vy=float(odomDataList[7])
 		vth=0
-		print("-->>"+str(x)+","+str(y)+","+str(th)+","+str(vx)+","+str(vy))
+#		print("-->>"+str(x)+","+str(y)+","+str(th)+","+str(vx)+","+str(vy))
 		odom_broadcaster = tf.TransformBroadcaster()
         	odom_broadcaster.sendTransform((x, y, 0.),
                 	tf.transformations.quaternion_from_euler(0, 0, th),
