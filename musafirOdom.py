@@ -51,8 +51,8 @@ if __name__ == '__main__':
     # why no try and spin ???
     # see if there is any official ROS Python Node code for Subscriber and Publisher
 	rospy.init_node('odometry_publisher')
-    odom = Odometry()
-    odom_broadcaster = tf.TransformBroadcaster()
+	odom = Odometry()
+	odom_broadcaster = tf.TransformBroadcaster()
 	odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 	sub = rospy.Subscriber("PublishMotorController", String, callback)
 	rospy.spin()

@@ -43,7 +43,7 @@ if __name__ == '__main__':
 		print("Publishing Serial String of Motor Controller: 'PublishMotorController'")
 		print("Subscribe Serail String for Motor Controller: 'msgForMotorControllerV3'")
 		pubRobotV3 = rospy.Publisher('PublishMotorController', String, queue_size=1)
-        rospy.Subscriber("msgForMotorControllerV3", String, write_to_port)
+	        rospy.Subscriber("msgForMotorControllerV3", String, write_to_port)
 		rospy.init_node('motorControllerV3')
 
 		serial_port = serial.Serial('/dev/nano', 115200,timeout=0)
@@ -56,8 +56,8 @@ if __name__ == '__main__':
 	except serial.SerialException:
 		print "Serial Port Error..."
 
-    except KeyboardInterrupt:
-        print "Key-interrupt"
-        sys.exit(0)
+	except KeyboardInterrupt:
+	        print "Key-interrupt"
+        	sys.exit(0)
 
 	sys.exit(0)
