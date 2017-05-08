@@ -23,3 +23,13 @@ Publisher Topic Type: String
 
 Subscribed Messages are sent AS IS to Serial port
 Only Publishes COMPLETE LINES form SERIAL PORT - when line ends with \n
+
+
+
+musafirOdom.py
+ROS Python NODE - reads Odom ECHO String Data coming from PublishMotorController and publishes as odom messages
+Node Name: odometry_publisher
+Subscribe Topic name: PublishMotorController
+Subscribe Topic name: String
+Publisher Topic Name: odom
+Publisher Topic Type: Odom Message
